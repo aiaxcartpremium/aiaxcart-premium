@@ -1,9 +1,9 @@
 // Checkout functionality
 let currentProduct = null;
-let selectedPaymentMethod = 'gcash';
 
 document.addEventListener('DOMContentLoaded', function() {
     loadProductFromURL();
+    setupPaymentMethods();
 });
 
 function loadProductFromURL() {
@@ -11,40 +11,12 @@ function loadProductFromURL() {
     const productId = urlParams.get('product');
     
     if (productId) {
-        // In real implementation, fetch product from Supabase
-        // For now, use sample data
-        const sampleProducts = [
-            {
-                id: 'prod-1',
-                name: "Netflix Premium",
-                category: "streaming",
-                price: 299,
-                stock: 15,
-                description: "Premium Netflix account with 4K streaming and multiple profiles.",
-                type: "solo account"
-            },
-            {
-                id: 'prod-2', 
-                name: "Disney+ Premium",
-                category: "streaming",
-                price: 249,
-                stock: 12,
-                description: "Full access to Disney+ content including Marvel, Star Wars, and more.",
-                type: "shared account"
-            },
-            {
-                id: 'prod-3',
-                name: "Spotify Premium",
-                category: "music", 
-                price: 199,
-                stock: 20,
-                description: "Ad-free music streaming with offline downloads.",
-                type: "solo account"
-            }
-        ];
-        
-        currentProduct = sampleProducts.find(p => p.id === productId) || sampleProducts[0];
+        // Find product from our data
+        currentProduct = allProducts.find(p => p.id === productId);
         updateOrderSummary();
+    } else {
+        showNotification('No product selected', 'error');
+        setTimeout(() => window.location.href = 'shop.html', 2000);
     }
 }
 
@@ -53,23 +25,31 @@ function updateOrderSummary() {
     if (!currentProduct || !orderSummary) return;
     
     orderSummary.innerHTML = `
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
-            <h4>${currentProduct.name}</h4>
-            <p>${currentProduct.description}</p>
-            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                <span>Price:</span>
-                <strong>₱${currentProduct.price}</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 4px solid var(--primary);">
+            <h4 style="margin: 0 0 10px 0; color: var(--primary);">${currentProduct.name}</h4>
+            <p style="margin: 0 0 10px 0; color: var(--text);">${currentProduct.description}</p>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                 <span>Type:</span>
                 <span>${currentProduct.type}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <span>Duration:</span>
+                <span>${currentProduct.duration}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold;">
+                <span>Total Price:</span>
+                <span style="color: var(--primary);">${formatPrice(currentProduct.price)}</span>
             </div>
         </div>
     `;
 }
 
+function setupPaymentMethods() {
+    // Set GCash as default
+    selectPaymentMethod('gcash');
+}
+
 function selectPaymentMethod(method) {
-    selectedPaymentMethod = method;
     document.querySelectorAll('.payment-method').forEach(m => {
         m.classList.remove('active');
     });
@@ -80,18 +60,22 @@ async function processOrder() {
     const customerName = document.getElementById('customerName').value.trim();
     const customerEmail = document.getElementById('customerEmail').value.trim();
     const paymentRef = document.getElementById('paymentRef').value.trim();
+    const paymentMethod = document.querySelector('.payment-method.active').getAttribute('data-method');
     
+    // Validation
     if (!customerName || !customerEmail || !paymentRef) {
-        alert('Please fill in all required fields');
+        showNotification('Please fill in all required fields', 'error');
         return;
     }
     
     if (!currentProduct) {
-        alert('No product selected');
+        showNotification('No product selected', 'error');
         return;
     }
     
     try {
+        showNotification('Processing your order...', 'info');
+        
         // Create order in Supabase
         const { data: order, error } = await supabase
             .from('orders')
@@ -100,7 +84,7 @@ async function processOrder() {
                 customer_name: customerName,
                 customer_email: customerEmail,
                 price: currentProduct.price,
-                payment_method: selectedPaymentMethod,
+                payment_method: paymentMethod,
                 payment_reference: paymentRef,
                 status: 'pending'
             })
@@ -112,12 +96,16 @@ async function processOrder() {
         // Auto-drop account
         await autoDropAccount(order.id, customerEmail);
         
-        alert('Order placed successfully! You will receive account details soon.');
-        window.location.href = 'index.html';
+        showNotification('Order successful! Account details sent to your email.', 'success');
+        
+        // Redirect to home after 3 seconds
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 3000);
         
     } catch (error) {
-        console.error('Order error:', error);
-        alert('Error processing order: ' + error.message);
+        console.error('Checkout error:', error);
+        showNotification('Order failed: ' + error.message, 'error');
     }
 }
 
@@ -138,7 +126,8 @@ async function autoDropAccount(orderId, customerEmail) {
                 .from('onhand_accounts')
                 .update({
                     status: 'sold',
-                    assigned_email: customerEmail
+                    assigned_email: customerEmail,
+                    updated_at: new Date().toISOString()
                 })
                 .eq('id', account.id);
                 
@@ -146,7 +135,8 @@ async function autoDropAccount(orderId, customerEmail) {
             await supabase
                 .from('products')
                 .update({
-                    stock: currentProduct.stock - 1
+                    stock: currentProduct.stock - 1,
+                    updated_at: new Date().toISOString()
                 })
                 .eq('id', currentProduct.id);
                 
@@ -154,9 +144,12 @@ async function autoDropAccount(orderId, customerEmail) {
             await supabase
                 .from('orders')
                 .update({
-                    status: 'delivered'
+                    status: 'delivered',
+                    delivered_at: new Date().toISOString()
                 })
                 .eq('id', orderId);
+                
+            console.log('Auto-drop completed for order:', orderId);
         }
     } catch (error) {
         console.error('Auto-drop error:', error);
