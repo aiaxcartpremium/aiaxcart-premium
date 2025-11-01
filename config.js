@@ -5,50 +5,37 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Global variables
 let currentUser = null;
-let currentProduct = null;
-let currentOrder = null;
 
 // Utility functions
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 10px;
-        color: white;
-        font-weight: 600;
-        z-index: 5000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        animation: slideIn 0.3s ease;
-    `;
-    
-    const colors = {
-        success: '#a8e6cf',
-        error: '#ff8ba7',
-        warning: '#ffd3b6',
-        info: '#a8d8ea'
-    };
-    
-    notification.style.background = colors[type] || colors.info;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
+    // Simple notification implementation
+    alert(message);
 }
 
 function formatPrice(price) {
     return '₱' + parseFloat(price).toFixed(2);
 }
 
-function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString('en-PH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+// Auth state check
+async function checkAuthState() {
+    const { data: { user } } = await supabase.auth.getUser();
+    currentUser = user;
+    updateAuthUI();
+}
+
+function updateAuthUI() {
+    const loginBtn = document.getElementById('loginBtn');
+    const adminBtn = document.getElementById('adminBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const myAccountBtn = document.getElementById('myAccountBtn');
+    
+    if (currentUser) {
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'block';
+        if (myAccountBtn) myAccountBtn.style.display = 'block';
+    } else {
+        if (loginBtn) loginBtn.style.display = 'block';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (myAccountBtn) myAccountBtn.style.display = 'none';
+    }
 }
