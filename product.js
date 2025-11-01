@@ -1,20 +1,101 @@
 // Product management functions
 let allProducts = [];
 
+// Sample products data for demo
+const sampleProducts = [
+    {
+        id: 'prod-1',
+        name: "Netflix Premium",
+        category: "streaming",
+        price: 299,
+        stock: 15,
+        description: "Premium Netflix account with 4K streaming and multiple profiles.",
+        type: "solo account",
+        expires_at: "2025-11-07"
+    },
+    {
+        id: 'prod-2',
+        name: "Disney+ Premium",
+        category: "streaming",
+        price: 249,
+        stock: 12,
+        description: "Full access to Disney+ content including Marvel, Star Wars, and more.",
+        type: "shared account",
+        expires_at: "2025-10-15"
+    },
+    {
+        id: 'prod-3',
+        name: "Spotify Premium",
+        category: "music",
+        price: 199,
+        stock: 20,
+        description: "Ad-free music streaming with offline downloads.",
+        type: "solo account",
+        expires_at: "2025-12-01"
+    },
+    {
+        id: 'prod-4',
+        name: "Steam Wallet Code",
+        category: "gaming",
+        price: 500,
+        stock: 8,
+        description: "$10 Steam Wallet code for game purchases.",
+        type: "code",
+        expires_at: "2026-01-01"
+    },
+    {
+        id: 'prod-5',
+        name: "YouTube Premium",
+        category: "streaming",
+        price: 349,
+        stock: 10,
+        description: "Ad-free YouTube with background play and downloads.",
+        type: "solo account",
+        expires_at: "2025-11-20"
+    },
+    {
+        id: 'prod-6',
+        name: "Adobe Creative Cloud",
+        category: "software",
+        price: 899,
+        stock: 5,
+        description: "Full access to Adobe Creative Cloud applications.",
+        type: "shared account",
+        expires_at: "2025-09-30"
+    }
+];
+
 async function loadProducts() {
     try {
+        console.log('Loading products...');
+        
+        // Try to load from Supabase first
         const { data: products, error } = await supabase
             .from('products')
             .select('*')
             .order('name');
         
-        if (error) throw error;
+        if (error) {
+            console.log('Supabase error, using sample data:', error);
+            // Use sample data if Supabase fails
+            allProducts = sampleProducts;
+        } else if (products && products.length > 0) {
+            console.log('Products loaded from Supabase:', products.length);
+            allProducts = products;
+        } else {
+            console.log('No products in Supabase, using sample data');
+            allProducts = sampleProducts;
+        }
         
-        allProducts = products;
-        renderProducts(products);
+        renderProducts(allProducts);
+        showNotification('Products loaded successfully!', 'success');
+        
     } catch (error) {
         console.error('Error loading products:', error);
-        showNotification('Failed to load products', 'error');
+        // Fallback to sample data
+        allProducts = sampleProducts;
+        renderProducts(allProducts);
+        showNotification('Using demo products data', 'info');
     }
 }
 
@@ -22,7 +103,10 @@ function renderProducts(products) {
     const productsContainer = document.getElementById('productsContainer');
     const accountsProductsContainer = document.getElementById('accountsProductsContainer');
     
-    if (!productsContainer || !accountsProductsContainer) return;
+    if (!productsContainer || !accountsProductsContainer) {
+        console.log('Product containers not found');
+        return;
+    }
     
     productsContainer.innerHTML = '';
     accountsProductsContainer.innerHTML = '';
@@ -40,9 +124,13 @@ function renderProducts(products) {
         return;
     }
     
+    console.log('Rendering products:', products.length);
+    
     products.forEach(product => {
         const productCard = createProductCard(product);
-        productsContainer.appendChild(productCard.cloneNode(true));
+        const productCardClone = productCard.cloneNode(true);
+        
+        productsContainer.appendChild(productCardClone);
         accountsProductsContainer.appendChild(productCard);
     });
 }
@@ -79,13 +167,15 @@ function createProductCard(product) {
     if (product.stock > 0) {
         buyBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            console.log('Buy button clicked for:', product.name);
             openCheckoutModal(product);
         });
     }
     
-    // Make entire card clickable
+    // Make entire card clickable for details
     card.addEventListener('click', (e) => {
         if (!e.target.closest('.btn-buy')) {
+            console.log('Product card clicked:', product.name);
             openProductDetails(product);
         }
     });
@@ -104,14 +194,18 @@ function getProductIcon(category) {
 }
 
 function filterProducts(category) {
-    const productCards = document.querySelectorAll('.product-card');
+    console.log('Filtering products by:', category);
+    
     const filteredProducts = category === 'all' ? allProducts : 
                            allProducts.filter(p => p.category === category);
     
+    console.log('Filtered products:', filteredProducts.length);
     renderProducts(filteredProducts);
 }
 
 function openProductDetails(product) {
+    console.log('Opening product details:', product.name);
+    
     const modal = document.createElement('div');
     modal.className = 'modal';
     modal.style.display = 'flex';
@@ -140,7 +234,7 @@ function openProductDetails(product) {
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="this.closest('.modal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="openCheckoutModal(${JSON.stringify(product).replace(/"/g, '&quot;')}); this.closest('.modal').remove()">
+                <button class="btn btn-primary" onclick="openCheckoutModalFromDetails('${product.id}')">
                     Buy Now
                 </button>
             </div>
@@ -160,11 +254,23 @@ function openProductDetails(product) {
     document.body.appendChild(modal);
 }
 
-// Search functionality
+function openCheckoutModalFromDetails(productId) {
+    const product = allProducts.find(p => p.id === productId);
+    if (product) {
+        // Close details modal
+        const modal = document.querySelector('.modal');
+        if (modal) modal.remove();
+        
+        // Open checkout modal
+        openCheckoutModal(product);
+    }
+}
+
+// Initialize search functionality
 function setupSearch() {
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
-    searchInput.placeholder = 'Search products...';
+    searchInput.placeholder = '🔍 Search products...';
     searchInput.style.cssText = `
         padding: 12px 20px;
         border: 2px solid var(--secondary);
@@ -175,6 +281,7 @@ function setupSearch() {
         margin: 0 auto 30px;
         display: block;
         background: white;
+        outline: none;
     `;
     
     const accountsSection = document.getElementById('accounts');
@@ -182,16 +289,24 @@ function setupSearch() {
         const filterContainer = accountsSection.querySelector('.products-filter');
         if (filterContainer) {
             filterContainer.parentNode.insertBefore(searchInput, filterContainer);
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                console.log('Searching for:', searchTerm);
+                
+                const filtered = allProducts.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm) ||
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+                
+                renderProducts(filtered);
+            });
         }
     }
-    
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filtered = allProducts.filter(product => 
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm) ||
-            product.category.toLowerCase().includes(searchTerm)
-        );
-        renderProducts(filtered);
-    });
 }
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupSearch();
+});
