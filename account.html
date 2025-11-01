@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Aiaxcart Premium Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <i class="fas fa-crown"></i>
+                    <h1>Aiaxcart Premium Shop</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="shop.html" class="nav-link">Accounts</a></li>
+                        <li><a href="#payment" class="nav-link">Payment</a></li>
+                        <li><a href="#rules" class="nav-link">Rules</a></li>
+                        <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="account-section">
+        <div class="container">
+            <h2 class="section-title">My Account</h2>
+            <div class="account-content">
+                <div id="userProfile">
+                    <!-- User profile will be loaded here -->
+                </div>
+                <div id="userOrders" style="margin-top: 40px;">
+                    <h3>My Orders</h3>
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>
