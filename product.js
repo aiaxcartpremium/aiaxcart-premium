@@ -1,145 +1,272 @@
-// Product management functions
-let allProducts = [];
-
-// Sample products data for demo
-const sampleProducts = [
+// Complete products data based on your categories
+const allProducts = [
+    // ENTERTAINMENT - NETFLIX
     {
-        id: 'prod-1',
+        id: 'netflix-premium',
         name: "Netflix Premium",
-        category: "streaming",
+        category: "entertainment",
+        subcategory: "netflix",
         price: 299,
         stock: 15,
-        description: "Premium Netflix account with 4K streaming and multiple profiles.",
+        description: "Premium Netflix account with 4K streaming and multiple profiles. 1 month warranty.",
         type: "solo account",
-        expires_at: "2025-11-07"
+        duration: "1 month"
     },
     {
-        id: 'prod-2',
+        id: 'netflix-shared',
+        name: "Netflix Shared",
+        category: "entertainment", 
+        subcategory: "netflix",
+        price: 199,
+        stock: 25,
+        description: "Shared Netflix account with HD streaming. Profile-based access.",
+        type: "shared account",
+        duration: "1 month"
+    },
+
+    // ENTERTAINMENT - DISNEY+
+    {
+        id: 'disney-plus',
         name: "Disney+ Premium",
-        category: "streaming",
+        category: "entertainment",
+        subcategory: "disney+",
         price: 249,
         stock: 12,
-        description: "Full access to Disney+ content including Marvel, Star Wars, and more.",
-        type: "shared account",
-        expires_at: "2025-10-15"
-    },
-    {
-        id: 'prod-3',
-        name: "Spotify Premium",
-        category: "music",
-        price: 199,
-        stock: 20,
-        description: "Ad-free music streaming with offline downloads.",
+        description: "Full access to Disney+ including Marvel, Star Wars, and National Geographic.",
         type: "solo account",
-        expires_at: "2025-12-01"
+        duration: "1 month"
     },
+
+    // ENTERTAINMENT - HBO MAX
     {
-        id: 'prod-4',
-        name: "Steam Wallet Code",
-        category: "gaming",
-        price: 500,
+        id: 'hbo-max',
+        name: "HBO Max",
+        category: "entertainment",
+        subcategory: "hbo max", 
+        price: 349,
         stock: 8,
-        description: "$10 Steam Wallet code for game purchases.",
-        type: "code",
-        expires_at: "2026-01-01"
+        description: "Access to HBO Max with all Warner Bros content and exclusive series.",
+        type: "solo account",
+        duration: "1 month"
     },
+
+    // ENTERTAINMENT - VIU
     {
-        id: 'prod-5',
+        id: 'viu-premium',
+        name: "VIU Premium",
+        category: "entertainment",
+        subcategory: "viu",
+        price: 149,
+        stock: 20,
+        description: "Korean dramas and Asian content with premium access.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // ENTERTAINMENT - VIVAMAX
+    {
+        id: 'vivamax',
+        name: "Vivamax",
+        category: "entertainment",
+        subcategory: "vivamax",
+        price: 199,
+        stock: 18,
+        description: "Local Filipino movies and exclusive content.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // STREAMING - SPOTIFY
+    {
+        id: 'spotify-premium',
+        name: "Spotify Premium",
+        category: "streaming", 
+        subcategory: "spotify",
+        price: 199,
+        stock: 30,
+        description: "Ad-free music streaming with offline downloads and high quality audio.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // STREAMING - YOUTUBE
+    {
+        id: 'youtube-premium',
         name: "YouTube Premium",
         category: "streaming",
+        subcategory: "youtube",
         price: 349,
-        stock: 10,
-        description: "Ad-free YouTube with background play and downloads.",
-        type: "solo account",
-        expires_at: "2025-11-20"
+        stock: 15,
+        description: "Ad-free YouTube, background play, and YouTube Music included.",
+        type: "solo account", 
+        duration: "1 month"
     },
+
+    // EDUCATIONAL - GRAMMARLY
     {
-        id: 'prod-6',
-        name: "Adobe Creative Cloud",
-        category: "software",
-        price: 899,
-        stock: 5,
-        description: "Full access to Adobe Creative Cloud applications.",
-        type: "shared account",
-        expires_at: "2025-09-30"
+        id: 'grammarly-premium',
+        name: "Grammarly Premium",
+        category: "educational",
+        subcategory: "grammarly",
+        price: 299,
+        stock: 22,
+        description: "Advanced grammar checking and writing suggestions.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // EDUCATIONAL - QUILLBOT
+    {
+        id: 'quillbot-premium',
+        name: "Quillbot Premium",
+        category: "educational",
+        subcategory: "quillbot",
+        price: 249,
+        stock: 18,
+        description: "AI-powered paraphrasing tool with multiple modes.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // EDUCATIONAL - MS365
+    {
+        id: 'ms365',
+        name: "Microsoft 365",
+        category: "educational",
+        subcategory: "ms365",
+        price: 399,
+        stock: 10,
+        description: "Full Office suite with Word, Excel, PowerPoint and 1TB cloud storage.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // EDITING - CANVA
+    {
+        id: 'canva-pro',
+        name: "Canva Pro",
+        category: "editing",
+        subcategory: "canva",
+        price: 299,
+        stock: 25,
+        description: "Premium design tools, templates, and stock assets.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // EDITING - CAPCUT
+    {
+        id: 'capcut-pro',
+        name: "CapCut Pro",
+        category: "editing",
+        subcategory: "capcut",
+        price: 199,
+        stock: 20,
+        description: "Professional video editing with premium effects and features.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // AI - CHATGPT
+    {
+        id: 'chatgpt-plus',
+        name: "ChatGPT Plus",
+        category: "ai",
+        subcategory: "chatgpt",
+        price: 599,
+        stock: 15,
+        description: "GPT-4 access, faster response times, and priority access.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // AI - GEMINI
+    {
+        id: 'gemini-advanced',
+        name: "Gemini Advanced",
+        category: "ai", 
+        subcategory: "gemini ai",
+        price: 499,
+        stock: 12,
+        description: "Google's most advanced AI with enhanced capabilities.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    // Add more products based on your list...
+    {
+        id: 'bilibili',
+        name: "Bilibili Premium",
+        category: "entertainment",
+        subcategory: "bilibili",
+        price: 179,
+        stock: 15,
+        description: "Chinese streaming platform with anime and gaming content.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    {
+        id: 'crunchyroll',
+        name: "Crunchyroll Premium",
+        category: "entertainment",
+        subcategory: "crunchyroll",
+        price: 229,
+        stock: 14,
+        description: "Anime streaming with simulcast episodes and ad-free viewing.",
+        type: "solo account",
+        duration: "1 month"
+    },
+
+    {
+        id: 'apple-music',
+        name: "Apple Music",
+        category: "streaming",
+        subcategory: "apple music",
+        price: 199,
+        stock: 18,
+        description: "70+ million songs, spatial audio, and lyrics.",
+        type: "solo account",
+        duration: "1 month"
     }
 ];
 
-async function loadProducts() {
-    try {
-        console.log('Loading products...');
-        
-        // Try to load from Supabase first
-        const { data: products, error } = await supabase
-            .from('products')
-            .select('*')
-            .order('name');
-        
-        if (error) {
-            console.log('Supabase error, using sample data:', error);
-            // Use sample data if Supabase fails
-            allProducts = sampleProducts;
-        } else if (products && products.length > 0) {
-            console.log('Products loaded from Supabase:', products.length);
-            allProducts = products;
-        } else {
-            console.log('No products in Supabase, using sample data');
-            allProducts = sampleProducts;
-        }
-        
-        renderProducts(allProducts);
-        showNotification('Products loaded successfully!', 'success');
-        
-    } catch (error) {
-        console.error('Error loading products:', error);
-        // Fallback to sample data
-        allProducts = sampleProducts;
-        renderProducts(allProducts);
-        showNotification('Using demo products data', 'info');
-    }
+// Load products when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadProducts();
+    setupCategoryFilters();
+});
+
+function loadProducts() {
+    renderProducts(allProducts);
 }
 
 function renderProducts(products) {
-    const productsContainer = document.getElementById('productsContainer');
-    const accountsProductsContainer = document.getElementById('accountsProductsContainer');
+    const container = document.getElementById('productsContainer');
+    const featuredContainer = document.getElementById('featuredProducts');
     
-    if (!productsContainer || !accountsProductsContainer) {
-        console.log('Product containers not found');
-        return;
+    if (container) {
+        container.innerHTML = '';
+        products.forEach(product => {
+            container.appendChild(createProductCard(product));
+        });
     }
     
-    productsContainer.innerHTML = '';
-    accountsProductsContainer.innerHTML = '';
-    
-    if (products.length === 0) {
-        const emptyMessage = `
-            <div style="text-align: center; padding: 40px; color: var(--text); opacity: 0.7;">
-                <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 20px; color: var(--secondary);"></i>
-                <h3>No products available</h3>
-                <p>Check back later for new premium accounts!</p>
-            </div>
-        `;
-        productsContainer.innerHTML = emptyMessage;
-        accountsProductsContainer.innerHTML = emptyMessage;
-        return;
+    if (featuredContainer) {
+        // Show only 6 featured products on homepage
+        const featured = products.slice(0, 6);
+        featuredContainer.innerHTML = '';
+        featured.forEach(product => {
+            featuredContainer.appendChild(createProductCard(product));
+        });
     }
-    
-    console.log('Rendering products:', products.length);
-    
-    products.forEach(product => {
-        const productCard = createProductCard(product);
-        const productCardClone = productCard.cloneNode(true);
-        
-        productsContainer.appendChild(productCardClone);
-        accountsProductsContainer.appendChild(productCard);
-    });
 }
 
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.setAttribute('data-category', product.category);
-    card.setAttribute('data-product-id', product.id);
+    card.setAttribute('data-subcategory', product.subcategory);
     
     const stockClass = product.stock > 10 ? 'product-stock' : 
                       product.stock > 0 ? 'product-stock low' : 'product-stock out';
@@ -147,166 +274,100 @@ function createProductCard(product) {
     
     card.innerHTML = `
         <div class="product-image">
-            <i class="fab fa-${getProductIcon(product.category)}"></i>
+            <i class="fab fa-${getProductIcon(product.subcategory)}"></i>
         </div>
         <div class="product-info">
             <h3 class="product-title">${product.name}</h3>
             <p class="product-description">${product.description}</p>
             <div class="product-meta">
-                <span>${product.type}</span>
+                <span>${product.type} • ${product.duration}</span>
                 <span class="${stockClass}">${stockText}</span>
             </div>
             <div class="product-price">${formatPrice(product.price)}</div>
-            <button class="btn-buy" ${product.stock === 0 ? 'disabled' : ''}>
+            <button class="btn-buy" ${product.stock === 0 ? 'disabled' : ''} 
+                    onclick="buyProduct('${product.id}')">
                 ${product.stock === 0 ? 'Out of Stock' : 'Buy Now'}
             </button>
         </div>
     `;
     
-    const buyBtn = card.querySelector('.btn-buy');
-    if (product.stock > 0) {
-        buyBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            console.log('Buy button clicked for:', product.name);
-            openCheckoutModal(product);
-        });
-    }
-    
-    // Make entire card clickable for details
-    card.addEventListener('click', (e) => {
-        if (!e.target.closest('.btn-buy')) {
-            console.log('Product card clicked:', product.name);
-            openProductDetails(product);
-        }
-    });
-    
     return card;
 }
 
-function getProductIcon(category) {
+function getProductIcon(subcategory) {
     const icons = {
-        streaming: 'netflix',
-        gaming: 'steam',
-        software: 'microsoft',
-        music: 'spotify'
+        'netflix': 'netflix',
+        'disney+': 'disney',
+        'hbo max': 'hbo',
+        'viu': 'youtube',
+        'vivamax': 'video',
+        'spotify': 'spotify',
+        'youtube': 'youtube',
+        'apple music': 'apple',
+        'grammarly': 'keyboard',
+        'quillbot': 'pen',
+        'ms365': 'microsoft',
+        'canva': 'paint-brush',
+        'capcut': 'video',
+        'chatgpt': 'robot',
+        'gemini ai': 'google',
+        'bilibili': 'play-circle',
+        'crunchyroll': 'play'
     };
-    return icons[category] || 'shopping-bag';
+    return icons[subcategory.toLowerCase()] || 'shopping-bag';
+}
+
+function setupCategoryFilters() {
+    // Add category filter buttons dynamically
+    const categories = [...new Set(allProducts.map(p => p.category))];
+    const filterContainer = document.querySelector('.products-filter');
+    
+    if (filterContainer) {
+        let filterHTML = '<button class="filter-btn active" onclick="filterProducts(\'all\')">All</button>';
+        
+        categories.forEach(category => {
+            filterHTML += `<button class="filter-btn" onclick="filterProducts('${category}')">${capitalizeFirst(category)}</button>`;
+        });
+        
+        filterContainer.innerHTML = filterHTML;
+    }
 }
 
 function filterProducts(category) {
-    console.log('Filtering products by:', category);
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
     
-    const filteredProducts = category === 'all' ? allProducts : 
-                           allProducts.filter(p => p.category === category);
-    
-    console.log('Filtered products:', filteredProducts.length);
-    renderProducts(filteredProducts);
+    const filtered = category === 'all' ? allProducts : 
+                   allProducts.filter(p => p.category === category);
+    renderProducts(filtered);
 }
 
-function openProductDetails(product) {
-    console.log('Opening product details:', product.name);
-    
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.display = 'flex';
-    
-    modal.innerHTML = `
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header">
-                <h3>${product.name}</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
-                    <div class="product-image" style="height: 200px; border-radius: 15px;">
-                        <i class="fab fa-${getProductIcon(product.category)}" style="font-size: 4rem;"></i>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--primary); margin-bottom: 15px;">Product Details</h4>
-                        <p><strong>Category:</strong> ${product.category}</p>
-                        <p><strong>Type:</strong> ${product.type}</p>
-                        <p><strong>Price:</strong> ${formatPrice(product.price)}</p>
-                        <p><strong>Stock:</strong> ${product.stock} available</p>
-                        <p><strong>Description:</strong> ${product.description}</p>
-                        ${product.expires_at ? `<p><strong>Expires:</strong> ${formatDate(product.expires_at)}</p>` : ''}
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="this.closest('.modal').remove()">Close</button>
-                <button class="btn btn-primary" onclick="openCheckoutModalFromDetails('${product.id}')">
-                    Buy Now
-                </button>
-            </div>
-        </div>
-    `;
-    
-    modal.querySelector('.close-modal').addEventListener('click', () => {
-        modal.remove();
-    });
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.remove();
-        }
-    });
-    
-    document.body.appendChild(modal);
+function searchProducts() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = allProducts.filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm) ||
+        product.subcategory.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm)
+    );
+    renderProducts(filtered);
 }
 
-function openCheckoutModalFromDetails(productId) {
+function buyProduct(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (product) {
-        // Close details modal
-        const modal = document.querySelector('.modal');
-        if (modal) modal.remove();
-        
-        // Open checkout modal
-        openCheckoutModal(product);
-    }
-}
-
-// Initialize search functionality
-function setupSearch() {
-    const searchInput = document.createElement('input');
-    searchInput.type = 'text';
-    searchInput.placeholder = '🔍 Search products...';
-    searchInput.style.cssText = `
-        padding: 12px 20px;
-        border: 2px solid var(--secondary);
-        border-radius: 25px;
-        font-size: 1rem;
-        width: 100%;
-        max-width: 400px;
-        margin: 0 auto 30px;
-        display: block;
-        background: white;
-        outline: none;
-    `;
-    
-    const accountsSection = document.getElementById('accounts');
-    if (accountsSection) {
-        const filterContainer = accountsSection.querySelector('.products-filter');
-        if (filterContainer) {
-            filterContainer.parentNode.insertBefore(searchInput, filterContainer);
-            
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                console.log('Searching for:', searchTerm);
-                
-                const filtered = allProducts.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm) ||
-                    product.description.toLowerCase().includes(searchTerm) ||
-                    product.category.toLowerCase().includes(searchTerm)
-                );
-                
-                renderProducts(filtered);
-            });
+        if (product.stock > 0) {
+            // Redirect to checkout with product ID
+            window.location.href = `checkout.html?product=${productId}`;
+        } else {
+            showNotification('This product is out of stock', 'error');
         }
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    setupSearch();
-});
+function capitalizeFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
