@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Aiaxcart Premium Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <i class="fas fa-crown"></i>
+                    <h1>Aiaxcart Premium Shop</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="shop.html" class="nav-link">Accounts</a></li>
+                        <li><a href="#payment" class="nav-link">Payment</a></li>
+                        <li><a href="#rules" class="nav-link">Rules</a></li>
+                        <li><a href="feedback.html" class="nav-link active">Feedback</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="feedback-section">
+        <div class="container">
+            <h2 class="section-title">Customer Feedback</h2>
+            <div class="feedback-content">
+                <div id="feedbackList">
+                    <!-- Feedback will be loaded here -->
+                </div>
+                
+                <div class="feedback-form" style="margin-top: 40px;">
+                    <h3>Leave Your Feedback</h3>
+                    <form onsubmit="submitFeedback(event)">
+                        <div class="form-group">
+                            <label for="fbName">Your Name</label>
+                            <input type="text" id="fbName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fbMessage">Your Message</label>
+                            <textarea id="fbMessage" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="fbRating">Rating</label>
+                            <select id="fbRating" class="form-control" required>
+                                <option value="">Select Rating</option>
+                                <option value="5">★★★★★ Excellent</option>
+                                <option value="4">★★★★ Very Good</option>
+                                <option value="3">★★★ Good</option>
+                                <option value="2">★★ Fair</option>
+                                <option value="1">★ Poor</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/feedback.js"></script>
+</body>
+</html>
