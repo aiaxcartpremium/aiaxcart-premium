@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Aiaxcart Premium Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Header (Same as index.html) -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <i class="fas fa-crown"></i>
+                    <h1>Aiaxcart Premium Shop</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="shop.html" class="nav-link active">Accounts</a></li>
+                        <li><a href="#payment" class="nav-link">Payment</a></li>
+                        <li><a href="#rules" class="nav-link">Rules</a></li>
+                        <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" id="adminBtn" style="display: none;" onclick="openAdminPanel()">Admin Panel</button>
+                    <button class="btn btn-outline" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
+                    <button class="btn btn-primary" id="myAccountBtn" style="display: none;" onclick="openAccountPage()">My Account</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Shop Content -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Premium Accounts</h2>
+            
+            <!-- Search Bar -->
+            <div class="form-group" style="max-width: 500px; margin: 0 auto 30px;">
+                <input type="text" id="searchInput" class="form-control" placeholder="🔍 Search products..." onkeyup="searchProducts()">
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="products-filter">
+                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                <button class="filter-btn" onclick="filterProducts('streaming')">Streaming</button>
+                <button class="filter-btn" onclick="filterProducts('gaming')">Gaming</button>
+                <button class="filter-btn" onclick="filterProducts('software')">Software</button>
+                <button class="filter-btn" onclick="filterProducts('music')">Music</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsContainer">
+                <!-- Products loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal (Same as index.html) -->
+    <div class="modal login-modal" id="loginModal">
+        <!-- Same modal content as index.html -->
+    </div>
+
+    <!-- Footer (Same as index.html) -->
+    <footer>
+        <!-- Same footer content as index.html -->
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html>
