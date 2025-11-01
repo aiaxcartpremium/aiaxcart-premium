@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Aiaxcart Premium Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <i class="fas fa-crown"></i>
+                    <h1>Aiaxcart Premium Shop</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="shop.html" class="nav-link">Accounts</a></li>
+                        <li><a href="#payment" class="nav-link">Payment</a></li>
+                        <li><a href="#rules" class="nav-link">Rules</a></li>
+                        <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="checkout-section">
+        <div class="container">
+            <h2 class="section-title">Checkout</h2>
+            <div class="checkout-content">
+                <div class="checkout-form">
+                    <h3>Order Details</h3>
+                    <div id="orderSummary">
+                        <!-- Order summary will be loaded here -->
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">Customer Information</h3>
+                    <div class="form-group">
+                        <label for="customerName">Full Name</label>
+                        <input type="text" id="customerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email Address</label>
+                        <input type="email" id="customerEmail" class="form-control" required>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-method active" data-method="gcash" onclick="selectPaymentMethod('gcash')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>GCash</div>
+                        </div>
+                        <div class="payment-method" data-method="paymaya" onclick="selectPaymentMethod('paymaya')">
+                            <i class="fas fa-credit-card"></i>
+                            <div>PayMaya</div>
+                        </div>
+                        <div class="payment-method" data-method="bank" onclick="selectPaymentMethod('bank')">
+                            <i class="fas fa-university"></i>
+                            <div>Bank Transfer</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentRef">Payment Reference Number</label>
+                        <input type="text" id="paymentRef" class="form-control" placeholder="Enter reference number from your payment" required>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-large" onclick="processOrder()" style="width: 100%; margin-top: 20px;">
+                        Confirm Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
