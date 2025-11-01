@@ -19,420 +19,102 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
-                        <li><a href="#" class="nav-link" data-section="accounts">Accounts</a></li>
-                        <li><a href="#" class="nav-link" data-section="payment">Payment</a></li>
-                        <li><a href="#" class="nav-link" data-section="rules">Rules</a></li>
-                        <li><a href="#" class="nav-link" data-section="feedback">Feedback</a></li>
-                        <li><a href="#" class="nav-link" data-section="about">About</a></li>
+                        <li><a href="index.html" class="nav-link active">Home</a></li>
+                        <li><a href="shop.html" class="nav-link">Accounts</a></li>
+                        <li><a href="#payment" class="nav-link">Payment</a></li>
+                        <li><a href="#rules" class="nav-link">Rules</a></li>
+                        <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
                     </ul>
                 </nav>
                 <div class="user-actions">
-                    <button class="btn btn-outline" id="loginBtn">Login</button>
-                    <button class="btn btn-primary" id="adminBtn" style="display: none;">Admin Panel</button>
-                    <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
-                    <button class="btn btn-primary" id="myAccountBtn" style="display: none;">My Account</button>
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" id="adminBtn" style="display: none;" onclick="openAdminPanel()">Admin Panel</button>
+                    <button class="btn btn-outline" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
+                    <button class="btn btn-primary" id="myAccountBtn" style="display: none;" onclick="openAccountPage()">My Account</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Home Section -->
-    <section id="home" class="section active">
-        <div class="hero">
-            <div class="container">
-                <h2>Premium Accounts at Affordable Prices</h2>
-                <p>Get access to premium streaming, gaming, and software accounts with our reliable and affordable service. Instant delivery after payment confirmation!</p>
-                <button class="btn btn-primary" id="browseProductsBtn">Browse Products</button>
-            </div>
-        </div>
-
-        <div class="categories">
-            <div class="container">
-                <h2 class="section-title">Categories</h2>
-                <div class="categories-grid">
-                    <div class="category-card" data-category="streaming">
-                        <div class="category-icon">
-                            <i class="fas fa-tv"></i>
-                        </div>
-                        <div class="category-info">
-                            <h3>Streaming</h3>
-                            <p>Netflix, Disney+, HBO Max, and more</p>
-                        </div>
-                    </div>
-                    <div class="category-card" data-category="gaming">
-                        <div class="category-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="category-info">
-                            <h3>Gaming</h3>
-                            <p>Steam, Origin, Uplay, and more</p>
-                        </div>
-                    </div>
-                    <div class="category-card" data-category="software">
-                        <div class="category-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <div class="category-info">
-                            <h3>Software</h3>
-                            <p>Adobe, Microsoft Office, and more</p>
-                        </div>
-                    </div>
-                    <div class="category-card" data-category="music">
-                        <div class="category-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="category-info">
-                            <h3>Music</h3>
-                            <p>Spotify, Apple Music, and more</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products">
-            <div class="container">
-                <h2 class="section-title">Featured Premium Accounts</h2>
-                <div class="products-filter">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="streaming">Streaming</button>
-                    <button class="filter-btn" data-filter="gaming">Gaming</button>
-                    <button class="filter-btn" data-filter="software">Software</button>
-                    <button class="filter-btn" data-filter="music">Music</button>
-                </div>
-                <div class="products-grid" id="productsContainer">
-                    <!-- Products loaded by JavaScript -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Accounts Section -->
-    <section id="accounts" class="section">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <h2 class="section-title">Premium Accounts</h2>
-            <div class="products-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="streaming">Streaming</button>
-                <button class="filter-btn" data-filter="gaming">Gaming</button>
-                <button class="filter-btn" data-filter="software">Software</button>
-                <button class="filter-btn" data-filter="music">Music</button>
-            </div>
-            <div class="products-grid" id="accountsProductsContainer">
-                <!-- Accounts products loaded by JavaScript -->
-            </div>
+            <h2>Premium Accounts at Affordable Prices</h2>
+            <p>Get access to premium streaming, gaming, and software accounts with our reliable and affordable service. Instant delivery after payment confirmation!</p>
+            <button class="btn btn-primary btn-large" onclick="window.location.href='shop.html'">Browse Products</button>
         </div>
     </section>
 
-    <!-- Payment Section -->
-    <section id="payment" class="section">
+    <!-- Categories Section -->
+    <section class="categories">
         <div class="container">
-            <h2 class="section-title">Mode of Payment</h2>
-            <div class="admin-content">
-                <h3>Accepted Payment Methods</h3>
-                <div class="payment-methods" style="margin-top: 20px;">
-                    <div class="payment-method active" style="flex-direction: column; align-items: center;">
-                        <i class="fas fa-mobile-alt"></i>
-                        <div>GCash</div>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Send payment to: 0912 345 6789</p>
+            <h2 class="section-title">Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterCategory('streaming')">
+                    <div class="category-icon">
+                        <i class="fas fa-tv"></i>
                     </div>
-                    <div class="payment-method" style="flex-direction: column; align-items: center;">
-                        <i class="fas fa-credit-card"></i>
-                        <div>PayMaya</div>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Send payment to: 0912 345 6789</p>
-                    </div>
-                    <div class="payment-method" style="flex-direction: column; align-items: center;">
-                        <i class="fas fa-university"></i>
-                        <div>Bank Transfer</div>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">BDO: 1234 5678 9012</p>
+                    <div class="category-info">
+                        <h3>Streaming</h3>
+                        <p>Netflix, Disney+, HBO Max, and more</p>
                     </div>
                 </div>
-                
-                <div style="margin-top: 30px;">
-                    <h4>Payment Instructions</h4>
-                    <ol style="margin-top: 15px; padding-left: 20px;">
-                        <li>Select your desired premium account</li>
-                        <li>Proceed to checkout</li>
-                        <li>Choose your preferred payment method</li>
-                        <li>Send payment to the provided account</li>
-                        <li>Enter the reference number in the checkout form</li>
-                        <li>Wait for payment confirmation (usually within 1-2 hours)</li>
-                        <li>Receive your account details via email</li>
-                    </ol>
+                <div class="category-card" onclick="filterCategory('gaming')">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Gaming</h3>
+                        <p>Steam, Origin, Uplay, and more</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Rules Section -->
-    <section id="rules" class="section">
-        <div class="container">
-            <h2 class="section-title">Rules & Guidelines</h2>
-            <div class="admin-content">
-                <h3>Terms of Service</h3>
-                <div style="margin-top: 20px;">
-                    <h4>General Rules</h4>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>All accounts sold are for personal use only</li>
-                        <li>Do not change the account password or email</li>
-                        <li>Sharing accounts with others may result in suspension</li>
-                        <li>We are not responsible for account bans by the service provider</li>
-                        <li>Refunds are only available if the account doesn't work upon delivery</li>
-                    </ul>
-                    
-                    <h4 style="margin-top: 20px;">Account Warranty</h4>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>All accounts come with a 7-day replacement warranty</li>
-                        <li>Warranty covers login issues and account suspension</li>
-                        <li>Warranty does not cover password changes by the user</li>
-                        <li>Replacement requests must be made within the warranty period</li>
-                    </ul>
-                    
-                    <h4 style="margin-top: 20px;">Payment Policy</h4>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>All payments must be confirmed before account delivery</li>
-                        <li>Payment confirmation usually takes 1-2 hours</li>
-                        <li>Unconfirmed payments will result in order cancellation</li>
-                        <li>Refunds are processed within 3-5 business days</li>
-                    </ul>
+                <div class="category-card" onclick="filterCategory('software')">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Software</h3>
+                        <p>Adobe, Microsoft Office, and more</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feedback Section -->
-    <section id="feedback" class="section">
-        <div class="container">
-            <h2 class="section-title">Customer Feedback</h2>
-            <div class="admin-content">
-                <div id="feedbackList">
-                    <!-- Feedback loaded by JavaScript -->
-                </div>
-                <div style="margin-top: 30px;">
-                    <h3>Leave Your Feedback</h3>
-                    <form id="feedbackForm">
-                        <div class="form-group">
-                            <label for="feedbackName">Your Name</label>
-                            <input type="text" id="feedbackName" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="feedbackMessage">Your Feedback</label>
-                            <textarea id="feedbackMessage" class="form-control" rows="5" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="feedbackRating">Rating (1-5 stars)</label>
-                            <select id="feedbackRating" class="form-control" required>
-                                <option value="">Select Rating</option>
-                                <option value="5">★★★★★ - Excellent</option>
-                                <option value="4">★★★★ - Very Good</option>
-                                <option value="3">★★★ - Good</option>
-                                <option value="2">★★ - Fair</option>
-                                <option value="1">★ - Poor</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="proofImage">Proof of Login (Screenshot)</label>
-                            <input type="file" id="proofImage" class="form-control" accept="image/*">
-                            <small>Upload a screenshot as proof that you successfully logged in</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Us</h2>
-            <div class="admin-content">
-                <h3>Aiaxcart Premium Shop</h3>
-                <p style="margin-top: 15px;">
-                    We are a trusted provider of premium accounts for various streaming, gaming, and software services. 
-                    Our mission is to make premium digital experiences accessible to everyone at affordable prices.
-                </p>
-                
-                <h4 style="margin-top: 20px;">Our Services</h4>
-                <ul style="margin-top: 15px; padding-left: 20px;">
-                    <li>Premium streaming accounts (Netflix, Disney+, HBO Max, etc.)</li>
-                    <li>Gaming accounts and wallet codes (Steam, Origin, etc.)</li>
-                    <li>Software licenses (Adobe, Microsoft Office, etc.)</li>
-                    <li>Music streaming accounts (Spotify, Apple Music, etc.)</li>
-                </ul>
-                
-                <h4 style="margin-top: 20px;">Why Choose Us?</h4>
-                <ul style="margin-top: 15px; padding-left: 20px;">
-                    <li>Instant delivery after payment confirmation</li>
-                    <li>7-day replacement warranty on all accounts</li>
-                    <li>24/7 customer support</li>
-                    <li>Secure payment methods</li>
-                    <li>Trusted by thousands of customers</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- My Account Section -->
-    <section id="myAccount" class="section">
-        <div class="container">
-            <h2 class="section-title">My Account</h2>
-            <div class="admin-content">
-                <div id="userInfo">
-                    <!-- User information loaded by JavaScript -->
-                </div>
-                <div style="margin-top: 30px;">
-                    <h3>My Orders</h3>
-                    <div id="userOrders">
-                        <!-- User orders loaded by JavaScript -->
+                <div class="category-card" onclick="filterCategory('music')">
+                    <div class="category-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>Music</h3>
+                        <p>Spotify, Apple Music, and more</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Admin Panel Section -->
-    <section id="adminPanel" class="section">
+    <!-- Featured Products -->
+    <section class="products">
         <div class="container">
-            <h2 class="section-title">Admin Dashboard</h2>
-            <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="products">Products</button>
-                <button class="admin-tab" data-tab="accounts">On-hand Accounts</button>
-                <button class="admin-tab" data-tab="orders">Orders</button>
-                <button class="admin-tab" data-tab="sales">Sales Summary</button>
+            <h2 class="section-title">Featured Premium Accounts</h2>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Products loaded by JavaScript -->
             </div>
-            <div class="admin-content">
-                <div class="admin-tab-content" id="productsTab">
-                    <h3>Products Management</h3>
-                    <button class="btn btn-primary" id="addProductBtn" style="margin-bottom: 20px;">Add New Product</button>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminProductsTable">
-                            <!-- Products data loaded by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="admin-tab-content" id="accountsTab" style="display: none;">
-                    <h3>On-hand Accounts</h3>
-                    <button class="btn btn-primary" id="addAccountBtn" style="margin-bottom: 20px;">Add New Account</button>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Account ID</th>
-                                <th>Product</th>
-                                <th>Username/Email</th>
-                                <th>Password</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminAccountsTable">
-                            <!-- Accounts data loaded by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="admin-tab-content" id="ordersTab" style="display: none;">
-                    <h3>Orders</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Product</th>
-                                <th>Customer</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminOrdersTable">
-                            <!-- Orders data loaded by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="admin-tab-content" id="salesTab" style="display: none;">
-                    <h3>Sales Summary</h3>
-                    <div id="salesSummary">
-                        <!-- Sales data loaded by JavaScript -->
-                    </div>
-                </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary btn-large" onclick="window.location.href='shop.html'">View All Products</button>
             </div>
         </div>
     </section>
-
-    <!-- Checkout Modal -->
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Checkout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="productName">Product</label>
-                    <input type="text" id="productName" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="productPrice">Price</label>
-                    <input type="text" id="productPrice" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="customerName">Your Name</label>
-                    <input type="text" id="customerName" class="form-control" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="customerEmail">Email Address</label>
-                    <input type="email" id="customerEmail" class="form-control" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label>Payment Method</label>
-                    <div class="payment-methods">
-                        <div class="payment-method active" data-method="gcash">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div>GCash</div>
-                        </div>
-                        <div class="payment-method" data-method="paymaya">
-                            <i class="fas fa-credit-card"></i>
-                            <div>PayMaya</div>
-                        </div>
-                        <div class="payment-method" data-method="bank">
-                            <i class="fas fa-university"></i>
-                            <div>Bank Transfer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="paymentRef">Payment Reference Number</label>
-                    <input type="text" id="paymentRef" class="form-control" placeholder="Enter reference number" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelCheckout">Cancel</button>
-                <button class="btn btn-primary" id="confirmCheckout">Confirm Order</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Login Modal -->
     <div class="modal login-modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Login to Your Account</h3>
-                <button class="close-modal">&times;</button>
+                <button class="close-modal" onclick="closeLoginModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="login-tabs">
-                    <button class="login-tab active" data-tab="login">Login</button>
-                    <button class="login-tab" data-tab="signup">Sign Up</button>
+                    <button class="login-tab active" onclick="switchLoginTab('login')">Login</button>
+                    <button class="login-tab" onclick="switchLoginTab('signup')">Sign Up</button>
                 </div>
                 
                 <div id="loginForm" class="login-form">
@@ -444,7 +126,7 @@
                         <label for="loginPassword">Password</label>
                         <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
                     </div>
-                    <button class="btn btn-primary" id="submitLogin" style="width: 100%;">Login</button>
+                    <button class="btn btn-primary btn-large" onclick="login()" style="width: 100%;">Login</button>
                 </div>
                 
                 <div id="signupForm" class="login-form" style="display: none;">
@@ -460,7 +142,7 @@
                         <label for="signupPassword">Password</label>
                         <input type="password" id="signupPassword" class="form-control" placeholder="Create a password (min. 6 characters)" required>
                     </div>
-                    <button class="btn btn-primary" id="submitSignup" style="width: 100%;">Sign Up</button>
+                    <button class="btn btn-primary btn-large" onclick="signup()" style="width: 100%;">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -483,11 +165,11 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#" class="nav-link" data-section="home">Home</a></li>
-                        <li><a href="#" class="nav-link" data-section="accounts">Accounts</a></li>
-                        <li><a href="#" class="nav-link" data-section="payment">Payment</a></li>
-                        <li><a href="#" class="nav-link" data-section="rules">Rules</a></li>
-                        <li><a href="#" class="nav-link" data-section="feedback">Feedback</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Accounts</a></li>
+                        <li><a href="#payment">Payment</a></li>
+                        <li><a href="#rules">Rules</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -515,12 +197,8 @@
     </footer>
 
     <!-- JavaScript Files -->
-    <script src="config.js"></script>
-    <script src="auth.js"></script>
-    <script src="products.js"></script>
-    <script src="checkout.js"></script>
-    <script src="admin.js"></script>
-    <script src="feedback.js"></script>
-    <script src="app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
