@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Aiaxcart Premium Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <i class="fas fa-crown"></i>
+                    <h1>Aiaxcart Premium Shop - Admin</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Back to Shop</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="admin-section">
+        <div class="container">
+            <h2 class="section-title">Admin Dashboard</h2>
+            
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchAdminTab('products')">Products</button>
+                <button class="admin-tab" onclick="switchAdminTab('accounts')">Accounts</button>
+                <button class="admin-tab" onclick="switchAdminTab('orders')">Orders</button>
+                <button class="admin-tab" onclick="switchAdminTab('sales')">Sales</button>
+            </div>
+            
+            <div id="adminContent">
+                <!-- Admin content will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
